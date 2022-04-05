@@ -54,3 +54,5 @@ R^2 is the coefficient of determination. Let's look at the coefficient of determ
 A higher coefficient of determination means that the independent variable explains more of the dependent variable and this coefficient increases as the number of independent variables increases. In fact, it is somewhat problematic to judge the usefulness of a regression model with only the coefficient of determination because it increases even if a variable that does not explain the dependent variable well is added. 
 
 ## Skyline Implementation
+
+### Code
