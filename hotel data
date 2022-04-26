@@ -1,24 +1,48 @@
+import random
+
 #compare function
 def dominate (point1, point2):
     if point1[0] < point2[0] and point1[1] > point2[1]:
         return 1
     else: return 0
 
-
-
 # data 생성 - 20개 , hotel rating + price
 dicta = {1:[5,133],2:[2,76],3:[3,175],4:[4,118],5:[4,75],6:[4,104],7:[4,95],8:[2,65],9:[5,315],10:[3,128],11:[3,128],12:[3,140],13:[3,138],14:[5,215],15:[3,113],16:[3,175],17:[3,109],18:[4,198],19:[1,78],20:[1,79]}
 
-# data 프린트
-for i in dicta:
-    print(i, dicta[i])
-    for j in dicta:
-        print(i, j, dicta[i], dicta[j])
-        dicta[i].append(dominate(dicta[i], dicta[j]))
-        print(dicta[i])
-        # [0,0,1] 마지막 element가 1이면 break
+#dominate 확인
+def dominateCheck (dicta):
+    for i in dicta:
+        dicta[i].append(0)
+        for j in dicta:
+            dicta[i][2] = (dominate(dicta[i], dicta[j]))
+            # [0,0,1] 마지막 element가 1이면 break
+            if dicta[i][2]==1:
+                break
+    return dicta
+
+#skyline answer
+def findskyline (dicta):
+    dominateCheck(dicta)
+    #dicta에서 마지막까 원소가 0인 애들이 skyline answer
+    print("skyline answer:")
+    for i in dicta:
+        if dicta[i][2]==0:
+            print(i)
+    print(" ")
+    return dicta
+
+#skyline answer 프린트
+findskyline(dicta)
+
+#각 데이터 리스트
+rating = [a+1 for a in range(5)]
+price = []
+
+
+# data 갯수 100 ~ 600, 10 씩 증가
+for num in [a*10 for a in range(1,2)] :
+    dictb = {}
+    for n in range(num):
+        dictb[n] = [random.sample([1,2,3],1)[0],  random.sample([1,2,3],1)[0]]
         
-
-#dicta에서 마지막 원소가 0인 애들이 skyline answer
-
-
+print(dictb)
