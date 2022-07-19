@@ -119,3 +119,72 @@ List is a data structure that benefits from queries. So, assuming you're only do
 The tree structure, on the other hand, has the advantage of not having to move a large amount of elements and not having to worry about space complexity because only the reference needs to be changed. So even if there is only one insert/delete operation, you can insert n times in a row, so you don't need to use the list data structure.
 
 As I said at the beginning, a binary search tree is characterized by not searching all elements. The worst case can be seen as a case of searching as much as the height of the tree (O(n)). So the time complexity of search/insert for height n is O(n). However, time complexity is a slightly better expression when expressed in terms of the number of elements. If H is expressed as the number of elements N , if the number of elements is N , it can be substituted with log_2_N . Therefore, the time complexity of the search/insert operation can be expressed as O(log_2_N).
+
+##############################################################
+
+import random
+
+poiCnt = 300
+domainCnt = 8
+domainRange = 300
+
+def generatePOI(poiN, domainN, domainR):
+  poiDict = dict.fromkeys(range(poiN), 0)
+  for i in poiDict:
+    poiDict[i]= random.sample(range(domainR),domainN)
+  return poiDict
+
+def generateFlagedPOI(origin):
+  poiDict = dict()
+  for i in origin:
+    poiDict[i] = origin[i][:]
+    poiDict[i].append([0])
+  return poiDict
+
+dictPoi = generatePOI(poiCnt, domainCnt, domainRange)
+#dictPoi = {0: [4, 98], 1: [3, 68], 2: [10, 56], 3: [46, 42], 4: [93, 41], 5: [56, 0], 6: [65, 84], 7: [51, 28], 8: [15, 93], 9: [40, 69]}
+dictFlagedPoi = generateFlagedPOI(dictPoi)
+#dictFlagedPoi
+
+def skylineBruteForce(data, domainN):
+  skyline = list()
+  for d in data:
+    for dCompare in data:
+      if data[d][0] > data[dCompare][0] and data[d][1] > data[dCompare][1]and data[d][2] > data[dCompare][2]and data[d][3] > data[dCompare][3]and data[d][4] > data[dCompare][4]:
+        data[d][8][0]  = 1
+  for d in data:
+    if data[d][8][0] == 0:
+      skyline.append(d)
+  return skyline
+
+def skylineBaseline(data, domainN):
+  skyline  = list(data.keys()).copy()
+  for k in data.keys():
+    for compareK in data.keys():
+      if data[k][0] > data[compareK][0]:
+        tempCnt = 1
+        flag = 1
+        while tempCnt<domainN:
+          if data[k][tempCnt] <= data[compareK][tempCnt]:
+            flag = 0
+            break
+          tempCnt += 1
+        if (flag == 1) and (k in skyline):
+           skyline.remove(k)
+           break
+  return skyline
+
+print("LayerBF: ", skylineLayerBF(dictFlagedPoi, domainCnt))
+
+import time
+
+print("Data: ", dictPoi)
+startBf = time.time()
+print("BF: ", skylineBruteForce(dictFlagedPoi, domainCnt))
+startBL = time.time()
+print("BL: ",  skylineBaseline(dictPoi, domainCnt))
+endBL = time.time()
+
+print(startBL - startBf, endBL - startBL)
+
+##############################################################
