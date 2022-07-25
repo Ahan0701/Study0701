@@ -120,7 +120,7 @@ The tree structure, on the other hand, has the advantage of not having to move a
 
 As I said at the beginning, a binary search tree is characterized by not searching all elements. The worst case can be seen as a case of searching as much as the height of the tree (O(n)). So the time complexity of search/insert for height n is O(n). However, time complexity is a slightly better expression when expressed in terms of the number of elements. If H is expressed as the number of elements N , if the number of elements is N , it can be substituted with log_2_N . Therefore, the time complexity of the search/insert operation can be expressed as O(log_2_N).
 
-##############################################################
+###Skyline Coding
 
 import random
 
@@ -187,4 +187,32 @@ endBL = time.time()
 
 print(startBL - startBf, endBL - startBL)
 
-##############################################################
+### skyline coding analysis
+from line 8~12, the code defines the argument; generatePOI.
+This argument gets three imports; poiN, domainN, domainR. 
+First, the argument creates a dictinary, poiDict, poiN long.
+Second, the poiDict is filled with random values of range domainR to domainN.
+
+from line 14~19, the code defines the argument; generateFlagedPOI.
+This argument imports a origin.
+Then, for the length of the origin, origin[i][:] and [0] is added.
+
+In line 21 and 23, the code uses the arguments above to each make a dictionary, dictPoi and dictFlagedPoi
+
+In line 26!35, the code defines the argument; skylineBruteForce.
+The argument imports the data and domain number. 
+Then, it creates a list named skyline. 
+After, the code checks if the data dominates the other. 
+If it does, the code puts in 1. 
+Lastly, the code checks the points that did not dominate by checking if it is 0, and put it in the skyline list. 
+
+In line 37~52, the codes defines the argument, skylineBaseline.
+The code imports the data and domain number
+Then, it creates a list named skyline. 
+For the number of data keys in skyline, the code compares the datas. 
+If the data is bigger than the data that is being compared against, tempCnt = 1 and flag = 1
+while tempCnt is smaller than the domain number imported above, tempCnt is increased by 1 every repeat unless the data[k][tempCnt] is smaller or equal t the data[compareK][tempCnt].
+If data[k][tempCnt] is smaller or equal t the data[compareK][tempCnt] the flag of the data is set as 0 and breaks the loop.
+After the loop above, the code removes the key that the code is comparing if flag is set as 1. 
+
+from line 54~61, the code measures how long it takes to perfrom the the two arguments; skylineBruteForce and skylineBaseline
